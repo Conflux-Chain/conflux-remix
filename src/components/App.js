@@ -31,7 +31,7 @@ function App() {
 function Footer () {
   return <div style={footerStyle}>
     <div><a href={"https://medium.com/remix-ide/quorum-plugin-for-remix-ee232ebca64c"} rel="noopener noreferrer" target="_blank">Help</a> | v{process.env.REACT_APP_VERSION}</div>
-    <img style={logoStyle} src={'logo.png'} alt="Quorum Logo"/>
+    <img style={logoStyle} src={'logo.png'} alt="Conflux Logo"/>
   </div>
 }
 
