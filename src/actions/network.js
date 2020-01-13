@@ -44,7 +44,7 @@ export function connectToNetwork (endpoint, tesseraEndpoint) {
         const options = await getTesseraParties()
         dispatch(setTesseraOptions(options))
       } else {
-        error = 'Please connect to a quorum node'
+        error = 'Please connect to a conflux node'
       }
 
     } catch (e) {
