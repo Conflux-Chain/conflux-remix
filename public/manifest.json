@@ -1,6 +1,6 @@
 {
-  "short_name": "Quorum Remix",
-  "name": "Quorum Plugin for Remix IDE",
+  "short_name": "Conflux Remix",
+  "name": "Conflux Plugin for Remix IDE",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
