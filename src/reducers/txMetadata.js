@@ -1,8 +1,8 @@
 const initialState = {
-  gasLimit: '3000000',
-  gasPrice: '0',
+  gasLimit: '1000000',
+  gasPrice: '100',
   value: '0',
-  valueDenomination: 'wei',
+  valueDenomination: 'drip',
 }
 
 export function txMetadataReducer (txMetadata = initialState, action) {

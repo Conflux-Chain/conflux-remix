@@ -54,7 +54,7 @@ function createConflux (endpoint) {
 }
 
 export async function getAccounts () {
-  const PRIVATE_KEY = '0xa816a06117e572ca7ae2f786a046d2bc478051d0717bf5cc4f5397923258d393'
+  const PRIVATE_KEY = '0x25b0c02f4dc47731be9c9e2acb2cf5967de55b361df398a82731e51062f5ccc6'
   const account = cfx.Account(PRIVATE_KEY)
   return [account]
 }

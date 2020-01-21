@@ -79,15 +79,10 @@ export function TxMetadata () {
                changeValue(e.target.value))}/>
       <select style={inlineInputStyle} className="form-control" defaultValue={valueDenomination}
               onChange={(e) => dispatch(changeValueDenomination(e.target.value))}>
-        <option value="wei">wei</option>
-        <option value="gwei">gwei</option>
-        <option value="finney">finney</option>
-        <option value="ether">ether</option>
+        <option value="drip">drip</option>
+        <option value="gdrip">gdrip</option>
+        <option value="cfx">cfx</option>
       </select>
-    </div>
-    <div style={txMetaRowStyle}>
-      <div style={labelStyle}>Private for</div>
-      <div style={reactSelectStyle}><PrivateFor/></div>
     </div>
   </div>
 }
