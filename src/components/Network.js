@@ -18,35 +18,30 @@ export function Network () {
     editing,
     status,
     endpoint,
-    // tesseraEndpoint,
   } = state.network
 
   const [endpointInput, setEndpointInput] = React.useState(endpoint)
-  const [tesseraEndpointInput, setTesseraEndpointInput] = React.useState(
-    tesseraEndpoint)
 
   React.useEffect(() => {
     // in case network changes after render
     setEndpointInput(endpoint)
-    setTesseraEndpointInput(tesseraEndpoint)
-  }, [endpoint, tesseraEndpoint])
+  }, [endpoint])
 
   const onEdit = () => {
     dispatch(editNetwork(true))
   }
   const onSave = async () => {
-    dispatch(saveNetwork(endpointInput, tesseraEndpointInput))
+    dispatch(saveNetwork(endpointInput))
   }
   const onCancel = () => {
     // reset to state values
     setEndpointInput(endpoint)
-    setTesseraEndpointInput(tesseraEndpoint)
     dispatch(editNetwork(false))
     dispatch(setError())
   }
 
   const onRefresh = () => {
-    dispatch(connectToNetwork(endpoint, tesseraEndpoint))
+    dispatch(connectToNetwork(endpoint))
   }
 
   return <form style={networkStyle}
@@ -67,20 +62,6 @@ export function Network () {
                disabled={!editing}
                value={endpointInput}
                onChange={(e) => setEndpointInput(
-               e.target.value)}/>
-      </InputTooltip>
-    </div>
-    <div style={{...txMetaRowStyle, display: 'none'}}>
-      <div style={labelStyle}>Tessera</div>
-      <InputTooltip
-        enabled={editing}
-        text="This should be the url for your tessera keys endpoint. It should include http(s), host/ip, port, and path. For example: http://localhost:9081/partyInfo/keys">
-        <input className="form-control"
-               type="text"
-               placeholder="(Optional)"
-               disabled={true}
-               value={tesseraEndpointInput}
-               onChange={(e) => setTesseraEndpointInput(
                e.target.value)}/>
       </InputTooltip>
     </div>
