@@ -6,10 +6,10 @@ import axios from 'axios'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-let web3, tessera
+let web3, cfx
 
 export async function updateWeb3Url (endpoint) {
-  web3 = createConflux(endpoint)
+  cfx = createConflux(endpoint)
   await testUrls(endpoint)
 }
 
@@ -54,25 +54,8 @@ function createConflux (endpoint) {
 }
 
 export async function getAccounts () {
-  return await web3.eth.getAccounts()
+  return await cfx.Account.random
 }
-
-export async function getTesseraParties () {
-  if (!tessera) {
-    return []
-  }
-  const response = await axios.get(`${tessera}`)
-  return response.data.keys
-  .map(party => formatAsSelectOption(party))
-}
-
-function formatAsSelectOption (party) {
-  return {
-    value: party.key,
-    label: party.key,
-  }
-}
-
 
 export async function deploy (contract, params, txMetadata) {
   let abi = contract.abi

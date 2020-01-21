@@ -1,5 +1,4 @@
-import { getAccounts, getTesseraParties, testUrls, updateWeb3Url } from '../api'
-import { setTesseraOptions } from './tessera'
+import { getAccounts, testUrls, updateWeb3Url } from '../api'
 import { setError } from './error'
 import { resetTransactionResults } from './contracts'
 
@@ -7,12 +6,11 @@ export function editNetwork (edit) {
   return { type: 'EDIT_NETWORK', payload: edit }
 }
 
-function setNetwork (endpoint, tesseraEndpoint, accounts, status, editing) {
+function setNetwork (endpoint, accounts, status, editing) {
   return {
     type: 'SET_NETWORK',
     payload: {
       endpoint,
-      tesseraEndpoint,
       accounts,
       status,
       editing
@@ -27,22 +25,19 @@ function setNetwork (endpoint, tesseraEndpoint, accounts, status, editing) {
  * them. It also resets transaction results in the deployed contract widgets
  * after connection to prevent confusion when switching nodes.
  *
- * @param endpoint Geth RPC Url (http://localhost:22000)
- * @param tesseraEndpoint Tessera party keys endpoint (http://localhost:9081/partyinfo/keys)
+ * @param endpoint Geth RPC Url (http://localhost:12593)
  * @returns thunk middleware dispatch function
  */
-export function connectToNetwork (endpoint, tesseraEndpoint) {
+export function connectToNetwork (endpoint) {
   return async dispatch => {
     dispatch({ type: 'SET_NETWORK_CONNECTING' })
     let accounts = [], status = 'Disconnected', editing = true, error = ''
     try {
       if (endpoint) {
-        await updateWeb3Url(endpoint, tesseraEndpoint)
+        await updateWeb3Url(endpoint)
         status = 'Connected'
         editing = false
-        accounts = await getAccounts()
-        const options = await getTesseraParties()
-        dispatch(setTesseraOptions(options))
+        accounts = [await getAccounts()]
       } else {
         error = 'Please connect to a conflux node'
       }
@@ -54,7 +49,7 @@ export function connectToNetwork (endpoint, tesseraEndpoint) {
 
     dispatch(setError(error))
 
-    dispatch(setNetwork(endpoint, tesseraEndpoint, accounts, status, editing))
+    dispatch(setNetwork(endpoint, accounts, status, editing))
 
     dispatch(resetTransactionResults())
   }
