@@ -54,8 +54,9 @@ function createConflux (endpoint) {
 }
 
 export async function getAccounts () {
-  console.log(cfx.Account.random)
-  return cfx.Account.random
+  const PRIVATE_KEY = '0xa816a06117e572ca7ae2f786a046d2bc478051d0717bf5cc4f5397923258d393'
+  const account = cfx.Account(PRIVATE_KEY)
+  return [account]
 }
 
 export async function deploy (contract, params, txMetadata) {

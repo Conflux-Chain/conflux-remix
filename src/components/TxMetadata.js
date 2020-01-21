@@ -55,8 +55,8 @@ export function TxMetadata () {
       <select className="form-control" defaultValue={account}
               onChange={(e) => dispatch(selectAccount(e.target.value))}>
         {accounts.map(
-          (account) => <option key={account}
-                               value={account}>{account}</option>)}
+          (account) => <option key={account.address}
+                               value={account.address}>{account.address}</option>)}
       </select>
       <i style={iconStyle}
          className="fa fa-clipboard"
