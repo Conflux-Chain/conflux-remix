@@ -15,14 +15,14 @@ import {
   fetchCompilationResult
 } from './actions'
 
-class QuorumPlugin extends PluginClient {
+class ConfluxPlugin extends PluginClient {
 
 }
 
 const store = createStore(rootReducer,
   composeWithDevTools(applyMiddleware(thunk)))
 
-const client = buildIframeClient(new QuorumPlugin())
+const client = buildIframeClient(new ConfluxPlugin())
 client.onload(async () => {
   ReactDOM.render(
     <Provider store={store}>
