@@ -37,7 +37,7 @@ export function connectToNetwork (endpoint) {
         await updateWeb3Url(endpoint)
         status = 'Connected'
         editing = false
-        accounts = [await getAccounts()]
+        accounts = await getAccounts()
       } else {
         error = 'Please connect to a conflux node'
       }

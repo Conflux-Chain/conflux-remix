@@ -27,9 +27,9 @@ export async function testUrls (rpcEndpoint) {
         config)
     }
 
-    // test with Web3 because there are slight differences in how it connects
-    const testWeb3 = createConflux(rpcEndpoint)
-    await testWeb3.getEpochNumber()
+    // test with Conflux because there are slight differences in how it connects
+    const testConflux = createConflux(rpcEndpoint)
+    await testConflux.getEpochNumber()
 
   } catch (e) {
     if (e.response) {
@@ -54,7 +54,8 @@ function createConflux (endpoint) {
 }
 
 export async function getAccounts () {
-  return await cfx.Account.random
+  console.log(cfx.Account.random)
+  return cfx.Account.random
 }
 
 export async function deploy (contract, params, txMetadata) {
