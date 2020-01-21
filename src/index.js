@@ -76,7 +76,7 @@ async function initPlugin (client, dispatch) {
 }
 
 async function initDev (client) {
-  console.log('In development mode, adding 7nodes network')
+  console.log('In development mode, adding conflux testnet network')
   await client.network.addNetwork(
-    { id: 10, name: 'quorum-examples-node-1', url: 'http://localhost:22000' })
+    { id: 10, name: 'conflux testnet network', url: 'http://testnet-jsonrpc.conflux-chain.org:12537' })
 }
