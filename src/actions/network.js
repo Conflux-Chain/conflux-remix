@@ -64,48 +64,21 @@ export function connectToNetwork (endpoint, tesseraEndpoint) {
  * This action attempts to connect to the given network, connecting if
  * successful and showing an error if unsuccessful.
  *
- * @param endpoint Geth RPC Url (http://localhost:22000)
- * @param tesseraEndpoint Tessera party keys endpoint (http://localhost:9081/partyinfo/keys)
+ * @param endpoint Conflux RPC Url (http://localhost:12593)
  * @returns thunk middleware dispatch function
  */
-export function saveNetwork (endpoint = '', tesseraEndpoint = '') {
+export function saveNetwork (endpoint = '') {
   return async dispatch => {
     try {
-      // TODO clearing tessera endpoint every time since we are hiding that field for now. Delete this line later
-      tesseraEndpoint = ''
 
-      if (tesseraEndpoint.endsWith('/')) {
-        tesseraEndpoint = tesseraEndpoint.substring(0,
-          tesseraEndpoint.length - 1)
-      }
+      await testUrls(endpoint)
 
-      await testUrls(endpoint, tesseraEndpoint)
-
-      // helper to automatically find partyinfo endpoint when adding a known local node
-      if(endpoint.startsWith('http://localhost:2200')) {
-        tesseraEndpoint = await getLocalPartyInfoIfAvailable(endpoint)
-      }
-
-      dispatch(connectToNetwork(endpoint, tesseraEndpoint))
+      dispatch(connectToNetwork(endpoint))
 
     } catch (e) {
       console.log('Error fetching network data', e.message)
       dispatch(setError(e.message))
     }
-  }
-}
-
-async function getLocalPartyInfoIfAvailable (endpoint) {
-  try {
-    const {port} = new URL(endpoint)
-    // 7nodes default urls are localhost:2200X and localhost:900(X+1)
-    const lastDigitIncremented = (port % 10) + 1
-    const likelyTesseraEndpoint = `http://localhost:900${lastDigitIncremented}/partyinfo`
-    await testUrls(endpoint, likelyTesseraEndpoint)
-    console.log("Using known quorum-examples partyinfo endpoint found at", likelyTesseraEndpoint)
-    return likelyTesseraEndpoint
-  } catch (e) {
-    return ''
   }
 }
 
