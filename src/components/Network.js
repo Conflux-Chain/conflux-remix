@@ -18,7 +18,7 @@ export function Network () {
     editing,
     status,
     endpoint,
-    tesseraEndpoint,
+    // tesseraEndpoint,
   } = state.network
 
   const [endpointInput, setEndpointInput] = React.useState(endpoint)
@@ -56,13 +56,13 @@ export function Network () {
     }}>
     <div style={txMetaRowStyle}>
       <div style={labelStyle}>
-        Geth RPC
+        Conflux RPC
       </div>
       <InputTooltip
         enabled={editing}
-        text="This should be the url for your geth node\'s RPC endpoint. It should include http(s), host/ip, and port. For example: http://localhost:22000/">
+        text="This should be the url for your conflux node\'s RPC endpoint. It should include http(s), host/ip, and port. For example: http://localhost:12539/">
         <input className="form-control"
-               // placeholder="http://localhost:22000"
+               // placeholder="http://localhost:12539"
                type="text"
                disabled={!editing}
                value={endpointInput}
