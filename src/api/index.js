@@ -1,5 +1,6 @@
 import Web3 from 'web3'
 import Conflux from 'js-conflux-sdk'
+import Account from 'js-conflux-sdk/src/Account'
 import { fromAscii } from '../utils/TypeUtils'
 import { getConstructor } from '../utils/ContractUtils'
 import axios from 'axios'
@@ -54,8 +55,7 @@ function createConflux (endpoint) {
 }
 
 export async function getAccounts () {
-  const PRIVATE_KEY = '0x25b0c02f4dc47731be9c9e2acb2cf5967de55b361df398a82731e51062f5ccc6'
-  const account = cfx.Account(PRIVATE_KEY)
+  const account = Account.random()
   return [account]
 }
 
