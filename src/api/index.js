@@ -1,7 +1,6 @@
 import Web3 from 'web3'
 import Conflux from 'js-conflux-sdk'
 import Account from 'js-conflux-sdk/src/Account'
-import { fromAscii } from '../utils/TypeUtils'
 import { getConstructor } from '../utils/ContractUtils'
 import axios from 'axios'
 
@@ -44,8 +43,7 @@ export async function testUrls (rpcEndpoint) {
 }
 
 function createConflux (endpoint) {
-  let provider
-  provider = endpoint
+  let provider = endpoint
   return new Conflux({
     url: provider.toString(),
     defaultGasPrice: 100,
@@ -65,26 +63,22 @@ export async function deploy (contract, params, txMetadata) {
   const bytecode = '0x' + contract.evm.bytecode.object
   const orderedParams = constructor.inputs.map(({ name, type }) => {
     const value = params[name]
-    if (type.startsWith('bytes')) {
-      // web3js doesn't automatically convert string to bytes32
-      return fromAscii(value)
-    }
     return value
   })
+
   const tx = {
     from: txMetadata.account,
     gasPrice: txMetadata.gasPrice,
     gas: txMetadata.gasLimit,
-    value: Web3.utils.toWei(txMetadata.value, txMetadata.valueDenomination),
-    privateFrom: txMetadata.privateFrom,
-    privateFor: txMetadata.privateFor
   }
-  const web3Contract = new web3.eth.Contract(abi)
-  const deployableContract = await web3Contract.deploy({
-    data: bytecode,
-    arguments: orderedParams,
-  })
-  const response = await deployableContract.send(tx)
+
+  const deployContract = cfx.Contract({
+    abi: abi,
+    code: bytecode,
+    })
+
+  const response = await deployContract.constructor(orderedParams).sendTransaction(tx).confirmed()
+
   return response
 }
 
