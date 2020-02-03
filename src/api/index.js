@@ -1,12 +1,12 @@
-import Web3 from 'web3'
 import Conflux from 'js-conflux-sdk'
 import Account from 'js-conflux-sdk/src/Account'
+import unit from 'js-conflux-sdk/src/util/unit'
 import { getConstructor } from '../utils/ContractUtils'
 import axios from 'axios'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-let web3, cfx
+let cfx
 
 export async function updateWeb3Url (endpoint) {
   cfx = createConflux(endpoint)
@@ -21,7 +21,7 @@ export async function testUrls (rpcEndpoint) {
     if (rpcEndpoint.startsWith('http')) {
       const parsed = new URL(rpcEndpoint)
       const config = {}
-      // test with axios because we get more detailed errors back than web3
+      // test with axios because we get more detailed errors back
       await axios.post(parsed.toString(),
         { 'jsonrpc': '2.0', 'method': 'cfx_epochNumber', 'params': [] , 'id': 1},
         config)
@@ -94,7 +94,7 @@ export async function contractMethod (txMetadata, params, method, privateFor,
     from: account,
     gas: gasLimit,
     gasPrice,
-    value: Web3.utils.toWei(value, valueDenomination),
+    value: unit(valueDenomination,'drip')(value),
     args: _params,
     privateFor: privateFor && selectedPrivateFor.filter(
       ({ enabled }) => enabled).map(({ key }) => key)
