@@ -10,7 +10,6 @@ import { Provider } from 'react-redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import {
-  addPublicKey,
   connectToNetwork,
   fetchCompilationResult
 } from './actions'
@@ -63,9 +62,6 @@ async function initPlugin (client, dispatch) {
   const savedNetwork = JSON.parse(localStorage.network || '{}')
   dispatch(
     connectToNetwork(savedNetwork.endpoint, savedNetwork.tesseraEndpoint))
-
-  const savedPublicKeys = JSON.parse(localStorage.keysFromUser || '[]')
-  savedPublicKeys.forEach((key) => dispatch(addPublicKey(key)))
 
   dispatch(fetchCompilationResult(client))
   client.solidity.on('compilationFinished',

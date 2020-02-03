@@ -66,7 +66,7 @@ export async function deploy (contract, params, txMetadata) {
     return value
   })
 
-  console.log(txMetadata)
+  console.log(txMetadata.account instanceof Account)
   const tx = {
     from: txMetadata.account,
     gasPrice: txMetadata.gasPrice,
@@ -78,7 +78,8 @@ export async function deploy (contract, params, txMetadata) {
     code: bytecode,
     })
 
-  const response = await deployContract.constructor(orderedParams).sendTransaction(tx).confirmed()
+  const response = await deployContract.constructor(orderedParams)
+    .sendTransaction({from: txMetadata.account}).confirmed()
 
   return response
 }

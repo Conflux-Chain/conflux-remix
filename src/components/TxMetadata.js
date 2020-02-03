@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { PrivateFor } from './PrivateFor'
 import {
   formContainerStyle,
   iconStyle,
