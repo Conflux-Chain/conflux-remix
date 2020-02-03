@@ -66,20 +66,16 @@ export async function deploy (contract, params, txMetadata) {
     return value
   })
 
-  console.log(txMetadata.account instanceof Account)
-  const tx = {
-    from: txMetadata.account,
+  const nonce = await cfx.getTransactionCount(txMetadata.account);
+  const tx = txMetadata.account.signTransaction({
+    nonce,
+    to: txMetadata.account.address,
     gasPrice: txMetadata.gasPrice,
     gas: txMetadata.gasLimit,
-  }
+    data: bytecode,
+  })
 
-  const deployContract = cfx.Contract({
-    abi: abi,
-    code: bytecode,
-    })
-
-  const response = await deployContract.constructor(orderedParams)
-    .sendTransaction({from: txMetadata.account}).confirmed()
+  const response = await cfx.sendRawTransaction(tx.serialize())
 
   return response
 }

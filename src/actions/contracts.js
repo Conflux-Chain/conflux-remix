@@ -60,8 +60,6 @@ export function addContract (contract, address, txMetadata) {
     payload: {
       ...contract,
       address: address,
-      privateFor: txMetadata.privateFor,
-      privateFrom: txMetadata.privateFrom
     }
   }
 }
@@ -119,7 +117,7 @@ export function deployContract (params, contract, txMetadata) {
     dispatch(setContractDeploying(true))
     try {
       const response = await deploy(contract, params, txMetadata)
-      dispatch(addContract(contract, response.options.address, txMetadata))
+      dispatch(addContract(contract, response, txMetadata))
       dispatch(setError())
     } catch (e) {
       console.error('Error deploying contract', e)
