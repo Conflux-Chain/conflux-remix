@@ -102,7 +102,7 @@ export async function contractMethod (txMetadata, params, method, privateFor,
 
   await verifyContract(contract.address)
 
-  let web3Contract = new web3.eth.Contract(contract.abi, contract.address)
+  let web3Contract = new cfx.Contract(contract.abi, contract.address)
   let web3Method = web3Contract.methods[method.name](..._params)
   let callOrSend = method.constant ? 'call' : 'send'
   const res = await web3Method[callOrSend](methodArgs)
