@@ -66,6 +66,7 @@ export async function deploy (contract, params, txMetadata) {
     return value
   })
 
+  console.log(txMetadata)
   const tx = {
     from: txMetadata.account,
     gasPrice: txMetadata.gasPrice,
@@ -108,7 +109,7 @@ export async function contractMethod (txMetadata, params, method, privateFor,
 }
 
 export async function verifyContract(address) {
-  const contractBinary = await web3.eth.getCode(address)
+  const contractBinary = await cfx.getCode(address)
   if (contractBinary === '0x') {
     throw new Error(`Contract does not exist at ${address}`)
   }
