@@ -4,7 +4,7 @@
 
 The Conflux remix plugin let  Remix IDE adds support for creating and interacting with contracts on a Conflux network.
 
-
+![plugin-screen](./public/plugin-screen.png)
 
 ## Getting Started
 
