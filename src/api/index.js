@@ -8,7 +8,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 let cfx
 
-export async function updateWeb3Url (endpoint) {
+export async function updateCfxUrl (endpoint) {
   cfx = createConflux(endpoint)
   await testUrls(endpoint)
 }

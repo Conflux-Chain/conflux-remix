@@ -1,4 +1,4 @@
-import { getAccounts, testUrls, updateWeb3Url } from '../api'
+import { getAccounts, testUrls, updateCfxUrl } from '../api'
 import { setError } from './error'
 import { resetTransactionResults } from './contracts'
 
@@ -34,7 +34,7 @@ export function connectToNetwork (endpoint) {
     let accounts = [], status = 'Disconnected', editing = true, error = ''
     try {
       if (endpoint) {
-        await updateWeb3Url(endpoint)
+        await updateCfxUrl(endpoint)
         status = 'Connected'
         editing = false
         accounts = await getAccounts()
