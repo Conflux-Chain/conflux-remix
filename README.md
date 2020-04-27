@@ -25,8 +25,7 @@ yarn start
 - Go to our dev version of [Remix IDE](http://remix-alpha.ethereum.org/). Make sure you connect to the http version of the site, not https.
 - Click on the plugins tab
 - Activate the Conflux Network plugin
-- The extension should automatically reload with any changes you make.
-
+- Click Conflux icon tab, add conflux testnet rpc address: (http://testnet-jsonrpc.conflux-chain.org:12537) to build your Smart contract
 
 
 ## Building
