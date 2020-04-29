@@ -1,4 +1,4 @@
-import {Conflux, Account, util} from 'js-conflux-sdk'
+import {Conflux, Account, util as CfxUtil} from 'js-conflux-sdk'
 import { getConstructor } from '../utils/ContractUtils'
 import axios from 'axios'
 
@@ -88,7 +88,7 @@ export async function contractMethod (txMetadata, params, method, privateFor,
     from: account,
     gas: gasLimit,
     gasPrice,
-    value: util.unit(valueDenomination,'drip')(value),
+    value: CfxUtil.unit(valueDenomination,'drip')(value),
     args: _params,
     privateFor: privateFor && selectedPrivateFor.filter(
       ({ enabled }) => enabled).map(({ key }) => key)
