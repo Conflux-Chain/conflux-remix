@@ -1,6 +1,4 @@
-import Conflux from 'js-conflux-sdk'
-import Account from 'js-conflux-sdk/src/Account'
-import unit from 'js-conflux-sdk/src/util/unit'
+import {Conflux, Account, util as CfxUtil} from 'js-conflux-sdk'
 import { getConstructor } from '../utils/ContractUtils'
 import axios from 'axios'
 
@@ -8,7 +6,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 let cfx
 
-export async function updateWeb3Url (endpoint) {
+export async function updateCfxUrl (endpoint) {
   cfx = createConflux(endpoint)
   await testUrls(endpoint)
 }
@@ -90,7 +88,7 @@ export async function contractMethod (txMetadata, params, method, privateFor,
     from: account,
     gas: gasLimit,
     gasPrice,
-    value: unit(valueDenomination,'drip')(value),
+    value: CfxUtil.unit(valueDenomination,'drip')(value),
     args: _params,
     privateFor: privateFor && selectedPrivateFor.filter(
       ({ enabled }) => enabled).map(({ key }) => key)
